@@ -1,0 +1,11 @@
+<div fxLayout="column">
+  <div>
+    <mat-checkbox [(ngModel)]="offensive" (change)="update()">Offensive</mat-checkbox>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="defensive" (change)="update()">Defensive</mat-checkbox>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="utility" (change)="update()">Utility</mat-checkbox>
+  </div>
+</div>

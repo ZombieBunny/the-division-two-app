@@ -1,21 +1,122 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!--<div *ngFor="let set of sets;">-->
+<!--{{set.name}}-->
+<!--</div>-->
+<div fxLayout="column" fxLayoutGap="10px" class="gear-form">
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div>
+      <mat-form-field>
+        <mat-label>Gear Slot</mat-label>
+        <mat-select [(value)]="slotName">
+          <mat-option *ngFor="let slot of slots" [value]="slot">
+            {{slot}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Brand</mat-label>
+        <mat-select [(value)]="brandSetName">
+          <mat-option *ngFor="let brand of sets" [value]="brand.name">
+            {{brand.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Gear Name" [(ngModel)]="name">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div>
+      <mat-label>Attributes slot 1</mat-label>
+      <app-types (updated)="at1 = $event"></app-types>
+    </div>
 
-<router-outlet></router-outlet>
+    <div>
+      <mat-label>Attributes slot 2</mat-label>
+      <app-types (updated)="at2 = $event"></app-types>
+    </div>
+
+    <div>
+      <mat-label>Attributes slot 3</mat-label>
+      <app-types (updated)="at3 = $event"></app-types>
+    </div>
+
+    <div>
+      <mat-label>Attributes slot 4</mat-label>
+      <app-types (updated)="at4 = $event"></app-types>
+    </div>
+
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutGap="10px">
+      <mat-label>Talents slot 1</mat-label>
+      <div fxLayout="row" fxLayoutGap="10px">
+        <div>
+          <div>
+            <mat-label>Common</mat-label>
+            <app-types (updated)="t1c = $event"></app-types>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <mat-label>Active</mat-label>
+              <app-types (updated)="t1a = $event"></app-types>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="column">
+      <mat-label>Talents slot 2</mat-label>
+      <div fxLayout="row" fxLayoutGap="10px">
+        <div>
+          <div>
+            <mat-label>Common</mat-label>
+            <app-types (updated)="t2c = $event"></app-types>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <mat-label>Active</mat-label>
+              <app-types (updated)="t2a = $event"></app-types>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div fxLayout="column">
+      <mat-label>Mod Slots</mat-label>
+      <div fxLayout="row" fxLayoutGap="10px">
+        <div>
+          <div>
+            <mat-label>System</mat-label>
+            <app-types (updated)="mss = $event"></app-types>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <mat-label>Protocol</mat-label>
+              <app-types (updated)="msp = $event"></app-types>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button mat-button (click)="save()">SAVE</button>
+  </div>
+</div>
+
+
+<!--<router-outlet></router-outlet>-->
