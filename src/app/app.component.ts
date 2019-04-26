@@ -54,7 +54,12 @@ export class AppComponent implements OnInit {
       talents: this.constructTalents(),
       mod_slots: this.constructMods()
     };
+
     console.log(gear);
+    this.service.creatGear(gear)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
   public constructAttributes(): any {
