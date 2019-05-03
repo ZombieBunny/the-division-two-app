@@ -6,30 +6,33 @@ import { AppComponent } from './app.component';
 import { GearService } from '../services/gear.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatTabsModule, MatToolbarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TypesModule } from './pages/types/types.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GearModule } from './pages/gear/gear.module';
+import { AttributesModule } from './pages/gear/attributes/attributes.module';
+import { TalentsModule } from './pages/gear/talents/talents.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    MatToolbarModule,
     HttpClientModule,
     AppRoutingModule,
     FlexLayoutModule,
-    MatSelectModule,
-    MatInputModule,
-    MatCheckboxModule,
-    TypesModule,
+    MatTabsModule,
     MatButtonModule,
     BrowserAnimationsModule,
+    GearModule,
+    AttributesModule,
+    TalentsModule
   ],
   providers: [
     GearService

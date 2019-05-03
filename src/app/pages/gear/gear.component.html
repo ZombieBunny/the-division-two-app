@@ -1,0 +1,255 @@
+
+<button mat-flat-button (click)="showCreate = !showCreate">CREATE</button>
+<div fxLayout="column" fxLayoutGap="10px" class="gear-form" *ngIf="showCreate">
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div>
+      <mat-form-field>
+        <mat-label>Gear Slot</mat-label>
+        <mat-select [(value)]="slotName">
+          <mat-option *ngFor="let slot of slots" [value]="slot">
+            {{slot}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Brand</mat-label>
+        <mat-select [(value)]="brandSetName">
+          <mat-option *ngFor="let brand of sets" [value]="brand.name">
+            {{brand.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Gear Name" [(ngModel)]="name">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div>
+      <mat-label>Attributes slot 1</mat-label>
+      <app-types (updated)="at1 = $event"></app-types>
+    </div>
+
+    <div>
+      <mat-label>Attributes slot 2</mat-label>
+      <app-types (updated)="at2 = $event"></app-types>
+    </div>
+
+    <div>
+      <mat-label>Attributes slot 3</mat-label>
+      <app-types (updated)="at3 = $event"></app-types>
+    </div>
+
+    <div>
+      <mat-label>Attributes slot 4</mat-label>
+      <app-types (updated)="at4 = $event"></app-types>
+    </div>
+
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutGap="10px">
+      <mat-label>Talents slot 1</mat-label>
+      <div fxLayout="row" fxLayoutGap="10px">
+        <div>
+          <div>
+            <mat-label>Common</mat-label>
+            <app-types (updated)="t1c = $event"></app-types>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <mat-label>Active</mat-label>
+              <app-types (updated)="t1a = $event"></app-types>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="column">
+      <mat-label>Talents slot 2</mat-label>
+      <div fxLayout="row" fxLayoutGap="10px">
+        <div>
+          <div>
+            <mat-label>Common</mat-label>
+            <app-types (updated)="t2c = $event"></app-types>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <mat-label>Active</mat-label>
+              <app-types (updated)="t2a = $event"></app-types>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div fxLayout="column">
+      <mat-label>Mod Slots</mat-label>
+      <div fxLayout="row" fxLayoutGap="10px">
+        <div>
+          <div>
+            <mat-label>System</mat-label>
+            <app-types (updated)="mss = $event"></app-types>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <mat-label>Protocol</mat-label>
+              <app-types (updated)="msp = $event"></app-types>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button mat-button (click)="save()">SAVE</button>
+  </div>
+</div>
+
+<div fxLayout="column">
+  <div *ngFor="let slot of slots">
+    <h3>{{slot}}</h3>
+    <div fxLayout="row wrap" fxLayoutGap="10px">
+      <div *ngFor="let gm of gear | gearSlotFilter:slot">
+        <app-gear-model-card (selected)="selectGear($event)" [gearModel]="gm"></app-gear-model-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="false">
+  <div fxFlex="50">
+    <mat-form-field fxFlex>
+      <mat-select [(value)]="slot">
+        <mat-option *ngFor="let slot of slots" [value]="slot">{{slot}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div class="gear-list" *ngIf="false">
+  <div fxLayout="row" class="rows" fxLayoutGap="10px">
+    <div fxFlex="15">Name</div>
+    <div fxFlex="10">Brand</div>
+    <div fxFlex="8">Slot</div>
+    <div fxFlex="30">Attributes</div>
+    <div fxFlex="20">Talents</div>
+    <div fxFlex="20">Mods</div>
+  </div>
+  <div *ngFor="let gm of gear" fxLayout="column">
+    <!--{{gm|json}}-->
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div fxFlex="15" fxLayoutAlign="start center">{{gm.name}}</div>
+      <div fxFlex="10" fxLayoutAlign="start center">{{gm.brand}}</div>
+      <div fxFlex="8" fxLayoutAlign="start center">{{gm.slot}}</div>
+      <div fxFlex="30" fxLayoutAlign="start center" fxLayout="row" fxLayoutGap="10px">
+        <!--{{gm.attributes | json}}-->
+        <div *ngIf="gm.attributes['1']">
+          <div>
+            <mat-form-field>
+              <mat-select placeholder="Attributes 1">
+                <mat-option *ngFor="let attr of attributes | gearAttributeFilter:gm.attributes['1']:gm.slot"
+                            [value]="attr">{{attr.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!--<div *ngFor="let type of gm.attributes['1']" fxLayout="row">-->
+          <!--<div>-->
+          <!--<img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">-->
+          <!--</div>-->
+          <!--</div>-->
+        </div>
+        <div *ngIf="gm.attributes['2']">
+          <div>
+            <mat-form-field>
+              <mat-select placeholder="Attributes 2">
+                <mat-option *ngFor="let attr of attributes | gearAttributeFilter:gm.attributes['2']:gm.slot"
+                            [value]="attr">{{attr.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div *ngIf="gm.attributes['3']">
+          <div>
+            <mat-form-field>
+              <mat-select placeholder="Attributes 3">
+                <mat-option *ngFor="let attr of attributes | gearAttributeFilter:gm.attributes['3']:gm.slot"
+                            [value]="attr">{{attr.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div *ngIf="gm.attributes['4']">
+          <div>
+            <mat-form-field>
+              <mat-select placeholder="Attributes 4">
+                <mat-option *ngFor="let attr of attributes | gearAttributeFilter:gm.attributes['4']:gm.slot"
+                            [value]="attr">{{attr.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px" class="rows">
+      <div fxFlex="20" fxLayout="row" fxLayoutGap="10px">
+        <!--{{gm.talents | json}}-->
+        <div *ngFor="let t of gm.talents">
+          <div>Talent Slot {{t.sequence}}</div>
+          <div *ngIf="t.common">
+            <div>Common</div>
+            <div *ngFor="let type of t.common" fxLayout="row">
+              <!--{{type}}-->
+              <div>
+                <img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="t.active">
+            <div>Active</div>
+            <div *ngFor="let type of t.active" fxLayout="row">
+              <!--{{type}}-->
+              <div>
+                <img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="20" fxLayout="row" fxLayoutGap="10px">
+        <div *ngIf="gm.modSlots?.system">
+          <div>System Mods</div>
+          <div *ngFor="let type of gm.modSlots.system" fxLayout="row">
+            <!--{{type}}-->
+            <div>
+              <img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">
+            </div>
+          </div>
+        </div>
+        <div *ngIf="gm.modSlots?.protocol">
+          <div>Protocol Mods</div>
+          <div *ngFor="let type of gm.modSlots.protocol" fxLayout="row">
+            <!--{{type}}-->
+            <div>
+              <img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

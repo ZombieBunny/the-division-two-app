@@ -1,0 +1,125 @@
+<mat-card fxLayout="column" fxLayoutGap="15px" class="gear-models" (click)="select()">
+  <div fxLayout="row" fxLayoutAlign="space-between start">
+    <div>
+      <div class="name"><strong>{{gearModel.name}}</strong></div>
+      <div class="brand">{{gearModel.brand}}</div>
+    </div>
+    <div fxLayout="row">
+      <div *ngFor="let slots of gearModel.setBonus">
+        <mat-icon [inline]="true">radio_button_unchecked</mat-icon>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row">
+
+    <div fxFlex="40" fxLayout="column">
+      <div>
+        Attributes
+      </div>
+      <div>
+        <div fxFlex="15" *ngIf="gearModel?.attributes['1']">
+          <div *ngFor="let type of gearModel.attributes['1']" fxLayout="row">
+            <mat-icon [ngClass]="{'offensive': type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': type.toLowerCase() === 'utility' ? true: false
+                                  }">fiber_manual_record
+            </mat-icon>
+          </div>
+        </div>
+
+        <div fxFlex="15" *ngIf="gearModel?.attributes['2']">
+          <div *ngFor="let type of gearModel.attributes['2']" fxLayout="row">
+            <mat-icon [ngClass]="{'offensive': type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': type.toLowerCase() === 'utility' ? true: false
+                                  }">fiber_manual_record
+            </mat-icon>
+          </div>
+        </div>
+
+        <div fxFlex="15" *ngIf="gearModel?.attributes['3']">
+          <div *ngFor="let type of gearModel.attributes['3']" fxLayout="row">
+            <mat-icon [ngClass]="{'offensive': type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': type.toLowerCase() === 'utility' ? true: false
+                                  }">fiber_manual_record
+            </mat-icon>
+          </div>
+        </div>
+
+
+        <div fxFlex="15" *ngIf="gearModel?.attributes['4']">
+          <div *ngFor="let type of gearModel.attributes['4']" fxLayout="row">
+            <mat-icon [ngClass]="{'offensive': type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': type.toLowerCase() === 'utility' ? true: false
+                                  }">fiber_manual_record
+            </mat-icon>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div fxFlex="40" fxLayout="column">
+      <div>
+        Talents
+      </div>
+      <div>
+        <div *ngFor="let t of gearModel.talents" fxLayout="row" fxLayoutGap="5px" fxFlex="50">
+          <div *ngIf="t.common" fxLayout="column" fxLayoutAlign="start center">
+            <div>C {{t.sequence}}</div>
+            <div *ngFor="let type of t.common" fxLayout="row">
+              <mat-icon [ngClass]="{'offensive': type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': type.toLowerCase() === 'utility' ? true: false
+                                  }">fiber_manual_record
+              </mat-icon>
+            </div>
+          </div>
+          <div *ngIf="t.active" fxLayout="column" fxLayoutAlign="start center">
+            <div>A {{t.sequence}}</div>
+            <div *ngFor="let type of t.active" fxLayout="row">
+              <mat-icon [ngClass]="{'offensive': type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': type.toLowerCase() === 'utility' ? true: false
+                                  }">fiber_manual_record
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="20" fxLayout="column">
+      <div>Mods</div>
+      <div fxLayout="row">
+        <div *ngIf="gearModel.modSlots?.system">
+          <div>System</div>
+          <div>
+            <div *ngFor="let type of gearModel.modSlots.system" fxLayout="row">
+              <mat-icon [ngClass]="{'offensive': type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': type.toLowerCase() === 'utility' ? true: false
+                                  }">fiber_manual_record
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="gearModel.modSlots?.protocol">
+          <div>Protocol</div>
+          <div *ngFor="let type of gearModel.modSlots.protocol" fxLayout="row">
+            <mat-icon [ngClass]="{'offensive': type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': type.toLowerCase() === 'utility' ? true: false
+                                  }">fiber_manual_record
+            </mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</mat-card>

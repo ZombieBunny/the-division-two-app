@@ -1,0 +1,121 @@
+<div fxLayout="column">
+  <div>
+    <button mat-button (click)="create = !create">
+      CREATE
+    </button>
+  </div>
+  <div fxLayout="column" fxFlex="50" *ngIf="create">
+    <!--'type_slot',-->
+    <div>
+      <mat-form-field fxFlex>
+        <mat-label>Type Slot</mat-label>
+        <mat-select [(value)]="talent.type_slot">
+          <mat-option *ngFor="let type of typeSlots" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!--'type',-->
+    <div>
+      <mat-form-field fxFlex>
+        <mat-label>Type</mat-label>
+        <mat-select [(value)]="talent.type">
+          <mat-option *ngFor="let type of types" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!--'name',-->
+    <div>
+      <mat-form-field fxFlex>
+        <input matInput #name (click)="name.select()" placeholder="Name" [(ngModel)]="talent.name">
+      </mat-form-field>
+    </div>
+    <!--'description',-->
+    <div>
+      <mat-form-field fxFlex>
+        <input matInput #description (click)="description.select()" placeholder="Description"
+               [(ngModel)]="talent.description">
+      </mat-form-field>
+    </div>
+    <!--'stat_name',-->
+    <!--<div>-->
+    <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Description" [(ngModel)]="talent.description">-->
+    <!--</mat-form-field>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;'value',&ndash;&gt;-->
+    <!--<div>-->
+    <!---->
+    <!--</div>-->
+    <!--'available',-->
+    <div>
+      <div>
+        <mat-form-field fxFlex>
+          <mat-label>Available on</mat-label>
+          <mat-select [(value)]="talent.available" multiple>
+            <mat-option *ngFor="let slot of slots" [value]="slot">{{slot}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <!--'requirements'-->
+    <div>
+      <mat-form-field fxFlex>
+        <input matInput #requirements (click)="requirements.select()" placeholder="Requirements"
+               [(ngModel)]="talent.requirements">
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-button (click)="save()">SAVE</button>
+    </div>
+  </div>
+
+  <div fxLayout="row">
+    <div>
+      <mat-form-field fxFlex>
+        <mat-label>Type</mat-label>
+        <mat-select [(value)]="filter.type" [multiple]="true">
+          <mat-option *ngFor="let type of types" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field fxFlex>
+        <mat-label>Type Slot</mat-label>
+        <mat-select [(value)]="filter.typeSlot">
+          <mat-option *ngFor="let type of typeSlots" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field fxFlex>
+        <mat-label>Slots</mat-label>
+        <mat-select [(value)]="filter.slot">
+          <mat-option *ngFor="let type of slots" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="column" fxFlex>
+    <div *ngFor="let talent of talents | gearTalentFilter:filter;" fxLayout="row">
+      <div fxFlex="10">{{talent.type}}</div>
+      <div fxFlex="10">{{talent.typeSlot}}</div>
+      <div fxFlex="10">{{talent.name}}</div>
+      <div fxFlex="40">{{talent.description}}</div>
+      <div fxFlex="15">{{talent.available}}</div>
+      <div fxFlex="15">{{talent.requirements}}</div>
+    </div>
+  </div>
+</div>
+

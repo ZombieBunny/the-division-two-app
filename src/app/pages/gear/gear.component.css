@@ -1,0 +1,41 @@
+.image {
+  width: 18px;
+  height: 20px;
+}
+
+.rows {
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+}
+
+.utility {
+  height: 20px;
+  width: 20px;
+  color: #f8d683;
+}
+
+.offensive {
+  height: 20px;
+  width: 20px;
+  color: #cf6a67;
+}
+
+.defensive {
+  height: 20px;
+  width: 20px;
+  color: #7faad9;
+}
+
+.gear-models {
+  width: 440px;
+  height: 180px;
+  margin: 0 0 10px 0;
+  font-size: 10px;
+}
+.name {
+  font-size: 18px;
+}
+
+.brand {
+  font-size: 14px;
+}

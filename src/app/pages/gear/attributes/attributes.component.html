@@ -1,0 +1,72 @@
+<div fxLayout="column" fxLayoutGap="30px">
+  <div fxLayout="row">
+    <div>
+      <mat-form-field>
+        <mat-label>Type</mat-label>
+        <mat-select [(value)]="attribute.type">
+          <mat-option *ngFor="let type of types" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="Name" [(ngModel)]="attribute.name">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Available on</mat-label>
+        <mat-select [(value)]="attribute.available" multiple>
+          <mat-option *ngFor="let slot of slots" [value]="slot">{{slot}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-button (click)="save()">Save</button>
+    </div>
+  </div>
+
+  <div fxLayout="column">
+
+    <div fxLayout="row">
+      <div fxFlex="50">
+        <mat-form-field fxFlex>
+          <mat-select [(value)]="type" [multiple]="true">
+            <mat-option *ngFor="let type of types" [value]="type">
+              {{type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50">
+        <mat-form-field fxFlex>
+          <mat-select [(value)]="slot">
+            <mat-option *ngFor="let slot of slots" [value]="slot">{{slot}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </div>
+    <!--<mat-form-field fxLayout="column">-->
+      <!--<mat-label>Type</mat-label>-->
+      <!--<mat-select>-->
+        <!--<mat-option *ngFor="let att of attributes | gearAttributeFilter:type:slot" [value]="att">-->
+          <!--{{att.name}}, {{att.type}}, {{att.available}}-->
+        <!--</mat-option>-->
+      <!--</mat-select>-->
+    <!--</mat-form-field>-->
+  </div>
+
+  <div>
+    <div fxLayout="column" *ngFor="let attr of attributes | gearAttributeFilter:type:slot">
+      <div fxLayout="row">
+        <div fxFlex="10">{{attr.type}}</div>
+        <div fxFlex="30">{{attr.name}}</div>
+        <div fxFlex="60">{{attr.available}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
