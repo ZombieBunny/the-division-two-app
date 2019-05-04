@@ -1,4 +1,3 @@
-
 <button mat-flat-button (click)="showCreate = !showCreate">CREATE</button>
 <div fxLayout="column" fxLayoutGap="10px" class="gear-form" *ngIf="showCreate">
   <div fxLayout="row" fxLayoutGap="10px">
@@ -114,6 +113,109 @@
   </div>
   <div>
     <button mat-button (click)="save()">SAVE</button>
+  </div>
+</div>
+
+<div fxLayout="column" *ngIf="selectedGear?.template?.name">
+  <!--display gear array-->
+  <div>{{selectedGear.name}}</div>
+  <div>{{selectedGear.brand}}</div>
+  <div>{{selectedGear.slot}}</div>
+  <div fxLayout="row">
+    <div *ngIf="selectedGear.template.attributes['1']">
+      <div>
+        <mat-form-field>
+          <mat-select placeholder="Attributes 1">
+            <mat-option
+              *ngFor="let attr of attributes | gearAttributeFilter:selectedGear.template.attributes['1']:selectedGear.template.slot"
+              [value]="attr">{{attr.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="selectedGear.template.attributes['2']">
+      <div>
+        <mat-form-field>
+          <mat-select placeholder="Attributes 2">
+            <mat-option
+              *ngFor="let attr of attributes | gearAttributeFilter:selectedGear.template.attributes['2']:selectedGear.template.slot"
+              [value]="attr">{{attr.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="selectedGear.template.attributes['3']">
+      <div>
+        <mat-form-field>
+          <mat-select placeholder="Attributes 3">
+            <mat-option
+              *ngFor="let attr of attributes | gearAttributeFilter:selectedGear.template.attributes['3']:selectedGear.template.slot"
+              [value]="attr">{{attr.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="selectedGear.template.attributes['4']">
+      <div>
+        <mat-form-field>
+          <mat-select placeholder="Attributes 4">
+            <mat-option
+              *ngFor="let attr of attributes | gearAttributeFilter:selectedGear.template.attributes['4']:selectedGear.template.slot"
+              [value]="attr">{{attr.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div fxFlex="20" fxLayout="row" fxLayoutGap="10px">
+      <!--{{gm.talents | json}}-->
+      <div *ngFor="let t of selectedGear.template.talents">
+        <div>Talent Slot {{t.sequence}}</div>
+        <div *ngIf="t.common">
+          <div>Common</div>
+          <div *ngFor="let type of t.common" fxLayout="row">
+            <div>
+              <img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">
+            </div>
+          </div>
+        </div>
+        <div *ngIf="t.active">
+          <div>Active</div>
+          <div *ngFor="let type of t.active" fxLayout="row">
+            <div>
+              <img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div fxFlex="20" fxLayout="row" fxLayoutGap="10px">
+      <div *ngIf="selectedGear.template.modSlots?.system">
+        <div>System Mods</div>
+        <div *ngFor="let type of selectedGear.template.modSlots.system" fxLayout="row">
+          <!--{{type}}-->
+          <div>
+            <img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedGear.template.modSlots?.protocol">
+        <div>Protocol Mods</div>
+        <div *ngFor="let type of selectedGear.template.modSlots.protocol" fxLayout="row">
+          <!--{{type}}-->
+          <div>
+            <img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

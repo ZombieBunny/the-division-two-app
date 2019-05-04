@@ -13,12 +13,31 @@ export class GearComponent implements OnInit {
   public types = ['Offensive', 'Defensive', 'Utility'];
 
   public showCreate = false;
-
   public attributes = [];
 
   public slot;
 
   public gear: any[] = [];
+
+  public selectedGear: {
+    name: string,
+    brand: string,
+    slot: string,
+    attributes: any[],
+    talents: any[],
+    modSlots: any[],
+    setBonus: any[],
+    template: any
+  } = {
+    name: '',
+    brand: '',
+    slot: '',
+    attributes: [],
+    talents: [],
+    modSlots: [],
+    setBonus: [],
+    template: {},
+  };
 
 
   public name: string;
@@ -140,5 +159,9 @@ export class GearComponent implements OnInit {
 
   public selectGear(gear): void {
     console.log(gear);
+    this.selectedGear.template = gear;
+    this.selectedGear.name = gear.name;
+    this.selectedGear.brand = gear.brand;
+    this.selectedGear.slot = gear.slot;
   }
 }
