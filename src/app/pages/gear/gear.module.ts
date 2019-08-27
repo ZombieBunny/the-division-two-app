@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '../../../../node_modules/@angular/platf
 import { GearAttributeFilterModule } from '../../pipes/gear-attribute-filter/gear-attribute-filter.module';
 import { GearSlotFilterModule } from '../../pipes/gear-slot-filter/gear-slot-filter.module';
 import { GearModelCardModule } from '../gear-model-card/gear-model-card.module';
+import { GearTalentFilterModule } from '../../pipes/gear-talent-filter/gear-talent-filter.module';
 
 @NgModule({
   declarations: [GearComponent],
@@ -29,6 +30,7 @@ import { GearModelCardModule } from '../gear-model-card/gear-model-card.module';
     BrowserAnimationsModule,
     GearAttributeFilterModule,
     GearModelCardModule,
+    GearTalentFilterModule
   ]
 })
 export class GearModule {

@@ -18,6 +18,7 @@ export class GearComponent implements OnInit {
   public slot;
 
   public gear: any[] = [];
+  public talents: any[] = [];
 
   public selectedGear: {
     name: string,
@@ -27,7 +28,8 @@ export class GearComponent implements OnInit {
     talents: any[],
     modSlots: any[],
     setBonus: any[],
-    template: any
+    template: any,
+    armour: number
   } = {
     name: '',
     brand: '',
@@ -37,7 +39,11 @@ export class GearComponent implements OnInit {
     modSlots: [],
     setBonus: [],
     template: {},
+    armour: 28000
   };
+
+  public selected: any[] = [];
+  public selectedGearSets: string[] = [];
 
 
   public name: string;
@@ -56,6 +62,7 @@ export class GearComponent implements OnInit {
   public mss: any[];
   public msp: any[];
 
+
   constructor(public service: GearService) {
   }
 
@@ -63,6 +70,7 @@ export class GearComponent implements OnInit {
     this.getSets();
     this.getAllGear();
     this.getAttributes();
+    this.getTalents();
   }
 
   public getSets(): void {
@@ -98,7 +106,6 @@ export class GearComponent implements OnInit {
       mod_slots: this.constructMods(),
     };
 
-    console.log(gear);
     this.service.creatGear(gear)
       .subscribe(res => {
         console.log(res);
@@ -163,5 +170,35 @@ export class GearComponent implements OnInit {
     this.selectedGear.name = gear.name;
     this.selectedGear.brand = gear.brand;
     this.selectedGear.slot = gear.slot;
+    this.selectedGear.setBonus = gear.setBonus;
+    this.selectedGear.talents = [];
+  }
+
+  public done(): void {
+    console.log(this.selectedGear);
+    this.selected.push({ ...this.selectedGear });
+    this.selectedGearSets.push(this.selectedGear.brand);
+    this.selectedGear = {
+      name: '',
+      brand: '',
+      slot: '',
+      attributes: [],
+      talents: [],
+      modSlots: [],
+      setBonus: [],
+      template: {},
+      armour: 28000
+    };
+  }
+
+  public getGearSetBonusCount(gearSet): number {
+    return this.selectedGearSets.filter(s => s === gearSet).length;
+  }
+
+  public getTalents(): void {
+    this.service.getGearTalents()
+      .subscribe(res => {
+        this.talents = res;
+      });
   }
 }

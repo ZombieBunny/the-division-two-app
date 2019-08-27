@@ -5,6 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure: true
 })
 export class GearAttributeFilterPipe implements PipeTransform {
+
   transform(attributes: { name: string, type: string, available: any[] }[],
             type: 'Offensive' | 'Defensive' | 'Utility',
             slot: 'Backpack' | 'Chest' | 'Gloves' | ' Holster' | 'Kneepads' | 'Mask'): any[] {
@@ -12,6 +13,8 @@ export class GearAttributeFilterPipe implements PipeTransform {
     if (!attributes) {
       return [];
     }
+
+    console.log(attributes);
 
     if (!type || !slot) {
       return [];

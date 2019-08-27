@@ -63,7 +63,6 @@ export class TalentsComponent implements OnInit {
 
 
   public save(): void {
-    // console.log(this.talent);
     this.service.creatGearTalent(this.talent)
       .subscribe(res => {
         console.log(res);

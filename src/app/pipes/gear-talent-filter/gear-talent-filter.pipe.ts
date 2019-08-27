@@ -12,7 +12,6 @@ export class GearTalentFilterPipe implements PipeTransform {
     slot: 'Backpack' | 'Chest' | 'Gloves' | ' Holster' | 'Kneepads' | 'Mask'
   }): any {
 
-    console.log(talents);
     if (!filter && !filter.type.length && !filter.typeSlot && !filter.slot) {
       return [];
     }

@@ -1,13 +1,20 @@
 <mat-card fxLayout="column" fxLayoutGap="15px" class="gear-models" (click)="select()">
   <div fxLayout="row" fxLayoutAlign="space-between start">
-    <div>
+    <div fxFlex="70">
       <div class="name"><strong>{{gearModel.name}}</strong></div>
-      <div class="brand">{{gearModel.brand}}</div>
-    </div>
-    <div fxLayout="row">
-      <div *ngFor="let slots of gearModel.setBonus">
-        <mat-icon [inline]="true">radio_button_unchecked</mat-icon>
+      <div class="brand" fxFlex="20">
+        <!--{{gearModel.brand}}-->
+        <!--<img class="gear-set-image" src="../../../assets/img/{{gearModel.brand.replace(' ', '_')}}.png">-->
       </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" fxFlex="30">
+      <div class="brand" fxFlex="40">
+        <!--{{gearModel.brand}}-->
+        <img class="gear-set-image" src="../../../assets/img/{{gearModel.brand.replace(' ', '_')}}.png">
+      </div>
+      <!--<div *ngFor="let slots of gearModel.setBonus">-->
+      <!--<mat-icon [inline]="true">radio_button_unchecked</mat-icon>-->
+      <!--</div>-->
     </div>
   </div>
   <div fxLayout="row">

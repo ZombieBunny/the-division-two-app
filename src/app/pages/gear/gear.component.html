@@ -116,19 +116,23 @@
   </div>
 </div>
 
-<div fxLayout="column" *ngIf="selectedGear?.template?.name">
+<div fxLayout="column" *ngIf="selectedGear?.template?.name" fxLayoutGap="20px">
   <!--display gear array-->
   <div>{{selectedGear.name}}</div>
   <div>{{selectedGear.brand}}</div>
   <div>{{selectedGear.slot}}</div>
-  <div fxLayout="row">
+  <div>Armor - {{selectedGear.armour}}</div>
+  <!-- Attributes -->
+  <div fxLayout="row" fxLayoutGap="10px">
     <div *ngIf="selectedGear.template.attributes['1']">
       <div>
         <mat-form-field>
-          <mat-select placeholder="Attributes 1">
+          <mat-select placeholder="Attributes 1" [(ngModel)]="selectedGear.attributes[0]">
             <mat-option
               *ngFor="let attr of attributes | gearAttributeFilter:selectedGear.template.attributes['1']:selectedGear.template.slot"
-              [value]="attr">{{attr.name}}
+              [value]="attr">
+              <img class="image" src="../../../assets/img/{{attr.type.toLowerCase()}}.png">
+              {{attr.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -137,10 +141,12 @@
     <div *ngIf="selectedGear.template.attributes['2']">
       <div>
         <mat-form-field>
-          <mat-select placeholder="Attributes 2">
+          <mat-select placeholder="Attributes 2" [(ngModel)]="selectedGear.attributes[1]">
             <mat-option
               *ngFor="let attr of attributes | gearAttributeFilter:selectedGear.template.attributes['2']:selectedGear.template.slot"
-              [value]="attr">{{attr.name}}
+              [value]="attr">
+              <img class="image" src="../../../assets/img/{{attr.type.toLowerCase()}}.png">
+              {{attr.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -149,10 +155,12 @@
     <div *ngIf="selectedGear.template.attributes['3']">
       <div>
         <mat-form-field>
-          <mat-select placeholder="Attributes 3">
+          <mat-select placeholder="Attributes 3" [(ngModel)]="selectedGear.attributes[2]">
             <mat-option
               *ngFor="let attr of attributes | gearAttributeFilter:selectedGear.template.attributes['3']:selectedGear.template.slot"
-              [value]="attr">{{attr.name}}
+              [value]="attr">
+              <img class="image" src="../../../assets/img/{{attr.type.toLowerCase()}}.png">
+              {{attr.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -161,40 +169,74 @@
     <div *ngIf="selectedGear.template.attributes['4']">
       <div>
         <mat-form-field>
-          <mat-select placeholder="Attributes 4">
+          <mat-select placeholder="Attributes 4" [(ngModel)]="selectedGear.attributes[3]">
             <mat-option
               *ngFor="let attr of attributes | gearAttributeFilter:selectedGear.template.attributes['4']:selectedGear.template.slot"
-              [value]="attr">{{attr.name}}
+              [value]="attr">
+              <img class="image" src="../../../assets/img/{{attr.type.toLowerCase()}}.png">
+              {{attr.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </div>
   </div>
+  <!-- Talents -->
   <div>
     <div fxFlex="20" fxLayout="row" fxLayoutGap="10px">
-      <!--{{gm.talents | json}}-->
       <div *ngFor="let t of selectedGear.template.talents">
-        <div>Talent Slot {{t.sequence}}</div>
-        <div *ngIf="t.common">
-          <div>Common</div>
-          <div *ngFor="let type of t.common" fxLayout="row">
-            <div>
-              <img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">
+        <mat-form-field fxLayoutAlign="column">
+          <mat-select placeholder="Talent Slot {{t.sequence}}" [(ngModel)]="selectedGear.talents[t.sequence - 1]">
+            <mat-select-trigger>
+              {{selectedGear?.talents[t.sequence - 1]?.name}}
+            </mat-select-trigger>
+            <div *ngIf="t.common">
+              <mat-option
+                *ngFor="let talent of talents |
+                gearTalentFilter:{type: t.common, typeSlot: 'Common', slot:selectedGear.slot }"
+                [value]="talent" fxLayout="row" fxLayoutAlign="start center">
+                <!--<div>-->
+                <!--<img class="image" src="../../../assets/img/{{talent.type.toLowerCase()}}.png">-->
+                <mat-icon [ngClass]="{'offensive': talent.type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': talent.type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': talent.type.toLowerCase() === 'utility' ? true: false
+                                  }">fiber_manual_record
+                </mat-icon>
+                {{ talent.name }} - Common
+                <!--</div>-->
+              </mat-option>
             </div>
-          </div>
-        </div>
-        <div *ngIf="t.active">
-          <div>Active</div>
-          <div *ngFor="let type of t.active" fxLayout="row">
-            <div>
-              <img class="image" src="../../../assets/img/{{type.toLowerCase()}}.png">
+            <div *ngIf="t.active">
+              <mat-option
+                *ngFor="let talent of talents |
+                gearTalentFilter:{type: t.active, typeSlot: 'Active', slot:selectedGear.slot }"
+                [value]="talent" fxLayout="row" fxLayoutAlign="start center">
+                <div>
+                  <!--<img class="image" src="../../../assets/img/{{talent.type.toLowerCase()}}.png">-->
+                  <mat-icon [ngClass]="{'offensive': talent.type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': talent.type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': talent.type.toLowerCase() === 'utility' ? true: false
+                                  }">fiber_manual_record
+                  </mat-icon>
+                  {{ talent.name }} - Active
+                </div>
+              </mat-option>
             </div>
-          </div>
-        </div>
+          </mat-select>
+          <mat-hint>
+            <div *ngIf="selectedGear?.talents[t.sequence - 1]?.description">
+              {{selectedGear.talents[t.sequence - 1].description}}
+            </div>
+            <div *ngIf="selectedGear?.talents[t.sequence - 1]?.requirements">
+              requirements - {{selectedGear.talents[t.sequence - 1].requirements}}
+            </div>
+          </mat-hint>
+        </mat-form-field>
       </div>
     </div>
   </div>
+
+  <!-- Mods -->
   <div>
     <div fxFlex="20" fxLayout="row" fxLayoutGap="10px">
       <div *ngIf="selectedGear.template.modSlots?.system">
@@ -217,11 +259,67 @@
       </div>
     </div>
   </div>
+  <div>
+    <button mat-button (click)="done()">done</button>
+  </div>
 </div>
 
-<div fxLayout="column">
+<!-- Selected Gear -->
+<div fxLayout="column" *ngIf="selected.length">
+  <h3>Selected Gear</h3>
+  <div *ngFor="let gear of selected" fxLayoutGap="10px" fxLayout="row wrap">
+    <mat-card fxLayout="column" fxFlex="30">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="column">
+          <div>{{gear.name}}</div>
+          <div>{{gear.brand}}</div>
+          <div>{{gear.slot}}</div>
+        </div>
+        <!--<div fxLayout="column" fxLayoutAlign="end center">-->
+        <!--<div *ngFor="let bonus of gear.setBonus" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">-->
+        <!--{{bonus.name}}-->
+        <!--<mat-icon [inline]="true">{{getGearSetBonusCount(gear.brand) >= bonus.sequence ? 'fiber_manual_record' :-->
+        <!--''}}-->
+        <!--</mat-icon>-->
+        <!--</div>-->
+        <!--{{ getGearSetBonusCount(gear.brand) }}-->
+        <!--</div>-->
+      </div>
+
+      <div *ngIf="gear.attributes?.length" fxLayout="column">
+        <label>Attributes</label>
+        <div *ngFor="let att of gear.attributes" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <mat-icon [ngClass]="{'offensive': att.type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': att.type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': att.type.toLowerCase() === 'utility' ? true: false
+                                  }" [inline]="true">fiber_manual_record
+          </mat-icon>
+          {{att.name}}
+        </div>
+      </div>
+      <div *ngIf="gear.talents.length" fxLayout="column">
+        <label>Talents</label>
+        <div *ngFor="let talent of gear.talents" fxLayoutAlign="start center">
+          <mat-icon [ngClass]="{'offensive': talent.type.toLowerCase() === 'offensive' ? true: false,
+                                  'defensive': talent.type.toLowerCase() === 'defensive' ? true: false,
+                                  'utility': talent.type.toLowerCase() === 'utility' ? true: false
+                                  }" [inline]="true">fiber_manual_record
+          </mat-icon>
+          {{talent.name}}
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<!-- array of gear -->
+<div fxLayout="column" class="gear-list">
   <div *ngFor="let slot of slots">
-    <h3>{{slot}}</h3>
+    <div fxLayout="row">
+      <div fxFlex="30">
+        <img class="gear-set-image" src="../../../assets/img/{{slot.toLowerCase()}}.png">
+      </div>
+    </div>
     <div fxLayout="row wrap" fxLayoutGap="10px">
       <div *ngFor="let gm of gear | gearSlotFilter:slot">
         <app-gear-model-card (selected)="selectGear($event)" [gearModel]="gm"></app-gear-model-card>
@@ -255,7 +353,6 @@
       <div fxFlex="10" fxLayoutAlign="start center">{{gm.brand}}</div>
       <div fxFlex="8" fxLayoutAlign="start center">{{gm.slot}}</div>
       <div fxFlex="30" fxLayoutAlign="start center" fxLayout="row" fxLayoutGap="10px">
-        <!--{{gm.attributes | json}}-->
         <div *ngIf="gm.attributes['1']">
           <div>
             <mat-form-field>
@@ -309,7 +406,6 @@
     </div>
     <div fxLayout="row" fxLayoutGap="10px" class="rows">
       <div fxFlex="20" fxLayout="row" fxLayoutGap="10px">
-        <!--{{gm.talents | json}}-->
         <div *ngFor="let t of gm.talents">
           <div>Talent Slot {{t.sequence}}</div>
           <div *ngIf="t.common">
